@@ -1,0 +1,39 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion compileVersionSdk
+
+    defaultConfig {
+        applicationId "com.amar.hack"
+        minSdkVersion projectMinSdkVersion
+        targetSdkVersion targetSdkVersion
+        versionCode projectVersionCode
+        versionName projectVersionName
+
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation kotlinSdk
+    implementation project(':library')
+    droid.values().forEach { implementation it }
+    externalLibs.values().forEach { implementation it }
+    testLibs.values().forEach { testImplementation it }
+    uiTestLibs.values().forEach { androidTestImplementation it }
+}
